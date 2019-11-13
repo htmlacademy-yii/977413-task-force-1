@@ -52,12 +52,12 @@ class Task
         self::ROLE_GUEST => 'Гость',
     ];
 
-    public function __construct(?int $statusNow ? $statusNow : $statusName[self::STATUS_NEW]) {
-          if(!in_array($statusNow, self::statusName)) {
-                    throw new StatusException;
-                }
-        $this->statusNow = $statusNow;
-    }
+//    public function __construct(?int $statusNow ? $statusNow : $statusName[self::STATUS_NEW]) {
+//          if(!in_array($statusNow, self::statusName)) {
+//                    throw new StatusException;
+//                }
+//        $this->statusNow = $statusNow;
+//    }
 
     public function nextStatus(int $myAction,int $statusNow) : int {
         if(!in_array($statusNow, self::statusName)) { /// EXCEPTION
@@ -97,8 +97,8 @@ class Task
 }
 
 try {
-    $task = new Task('Новое');
-    $task->nextStatus('Откликнуться');
+    $task = new Task();
+    $task->nextStatus(200, 10);
     echo $task->getStatus();
 } catch (StatusException $e) {
     die($e->getMessage());
