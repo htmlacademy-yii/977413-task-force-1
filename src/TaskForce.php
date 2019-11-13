@@ -52,14 +52,14 @@ class Task
         self::ROLE_GUEST => 'Гость',
     ];
 
-    public function __construct($statusNow ? $statusNow : $statusName[self::STATUS_NEW]) {
+    public function __construct(?int $statusNow ? $statusNow : $statusName[self::STATUS_NEW]) {
           if(!in_array($statusNow, self::statusName)) {
                     throw new StatusException;
                 }
         $this->statusNow = $statusNow;
     }
 
-    public function nextStatus($myAction, $statusNow) {
+    public function nextStatus(int $myAction,int $statusNow) : int {
         if(!in_array($statusNow, self::statusName)) { /// EXCEPTION
             throw new StatusException;
         }
@@ -69,19 +69,23 @@ class Task
         foreach (self::statusName as $status) {
             foreach (self::actionName as $action) {
                 if ($statusNow == $status[self::STATUS_NEW]) { /// 1 New
-                    if($myAction == $action[self::ACTION_CANCEL]) {  /// 0 'cancel'
-                        return $this->statusNext = $status[self::STATUS_CANCELED]; /// 0 "Canceled"
-                    }
-                    if($myAction == $action[self::ACTION_RESPOND]) { /// 10 'respond'
-                        return $this->status_next = $status[self::STATUS_IN_WORKING];  /// 10 "In working"
+                    switch ($myAction) {
+                        case $action[self::ACTION_CANCEL]:
+                            return $this->statusNext = $status[self::STATUS_CANCELED];
+                            break;
+                        case $action[self::ACTION_RESPOND]:
+                            return $this->status_next = $status[self::STATUS_IN_WORKING];
+                            break;
                     }
                 }
-                if ($statusNow == $status[self::STATUS_IN_WORK]) {   /// 10 'In working'
-                    if($myAction == $action[self::ACTION_DONE]) {  /// 200 'done'
-                        return $this->status_next = $status[self::STATUS_DONE];  /// 200 "Done"
-                    }
-                    if($myAction == $action[self::ACTION_REFUSE]) {   /// 404 'refuse'
-                        return $this->status_next = $status[self::STATUS_FAILED]; /// 404 "Failed"
+                elseif ($statusNow == $status[self::STATUS_IN_WORK]) {   /// 10 'In working'
+                    switch ($myAction) {
+                        case $action[self::ACTION_DONE]:
+                            return $this->status_next = $status[self::STATUS_DONE];
+                            break;
+                        case $action[self::ACTION_REFUSE]:
+                            return $this->status_next = $status[self::STATUS_FAILED];
+                            break;
                     }
                 }
             }
