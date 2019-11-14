@@ -2,8 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
-use HtmlAcademy\Task;
-use HtmlAcademy\UndefinedActionException;
+use HtmlAcademy\BusinessLogic\Task;
+use HtmlAcademy\Exceptions\UndefinedActionException;
 
 try {
     $task = new Task();

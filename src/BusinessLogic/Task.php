@@ -1,8 +1,8 @@
 <?php
 
-namespace HtmlAcademy;
+namespace HtmlAcademy\BusinessLogic;
 
-use HtmlAcademy\UndefinedActionException;
+use HtmlAcademy\Exceptions\UndefinedActionException;
 
 require_once './vendor/autoload.php';
 
