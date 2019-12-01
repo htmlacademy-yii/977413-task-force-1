@@ -24,9 +24,9 @@ class Task
     CONST ACTION_DONE = 200;
     CONST ACTION_REFUSE = 404;
 
-    CONST ROLE_ADMIN = 2;
-    CONST ROLE_USER = 1;
-    CONST ROLE_GUEST = 0;
+    CONST ROLE_ADMIN = 3;
+    CONST ROLE_USER = 2;
+    CONST ROLE_GUEST = 1;
 
     public function getAllStatuses()
     {
@@ -60,8 +60,9 @@ class Task
 //    }
 //    ];
 
-    public function nextStatus(int $action) : int {
-        if(!array_key_exists($action, $this->getAllActions())) {
+    public function nextStatus(int $action): int
+    {
+        if (!array_key_exists($action, $this->getAllActions())) {
             throw new UndefinedActionException();
         }
         switch ($action) {
