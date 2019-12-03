@@ -67,6 +67,16 @@ CREATE TABLE responses
     date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE messages
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message CHAR(128),
+    author_id INT,
+    adresant_id INT,
+    task_id INT,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP
+
+);
 CREATE UNIQUE INDEX email_user ON users(email);
 CREATE INDEX task_name ON tasks(name);
 CREATE INDEX author ON tasks(author_id);
