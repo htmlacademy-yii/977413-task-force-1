@@ -8,17 +8,17 @@ require_once './vendor/autoload.php';
 
 class CancelAction extends AbstractClassAction
 {
-    public static function getActionName()
+    public static function getActionName() : string
     {
         return 'Отменить';
     }
 
-    public static function getInteriorName()
+    public static function getInteriorName() : string
     {
         return 'act_cancel';
     }
 
-    public static function RoleCheck($user_id,$task_status,$availability=null)
+    public static function RoleCheck(int $user_id,string $task_status,bool $availability=null) : bool
     {
         if($task_status == 'NEW') {
             if($user_id == 'customer_id') {

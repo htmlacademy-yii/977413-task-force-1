@@ -32,7 +32,7 @@ class AvailableActions
     CONST ROLE_USER = 2;
     CONST ROLE_GUEST = 1;
 
-    public function getAllStatuses()
+    public function getAllStatuses() : array
     {
         return [
             self::STATUS_NEW => 'Новое',
@@ -43,7 +43,7 @@ class AvailableActions
         ];
     }
 
-    public function getAllActions()
+    public function getAllActions() : array
     {
         return [
             self::ACTION_RESPOND => 'Откликнуться',
@@ -54,7 +54,7 @@ class AvailableActions
     }
 
     //
-//    public function getAllRoles()
+//    public function getAllRoles() : array
 //    {
 //      return [
 //        self::ROLE_ADMIN => 'Администратор',
@@ -85,7 +85,7 @@ class AvailableActions
         }
     }
 
-    public function getAvailableActions($role,$id) // ещё делаю...
+    public function getAvailableActions(string $role,int $id) : int // ещё делаю...
     {
 
     }

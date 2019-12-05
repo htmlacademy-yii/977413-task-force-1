@@ -9,17 +9,17 @@ require_once './vendor/autoload.php';
 
 class DoneAction extends AbstractClassAction
 {
-    public static function getActionName()
+    public static function getActionName() : string
     {
         return 'Выполнено';
     }
 
-    public static function getInteriorName()
+    public static function getInteriorName() : string
     {
         return 'act_done';
     }
 
-    public static function RoleCheck($user_id,$task_status,$availability=null)
+    public static function RoleCheck(int $user_id,string $task_status,bool $availability=null) : bool
     {
         if($task_status == 'IN_WORKING') {
             if($user_id == 'customer_id') {
