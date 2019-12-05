@@ -3,10 +3,14 @@
 namespace HtmlAcademy\BusinessLogic;
 
 use HtmlAcademy\Exceptions\UndefinedActionException;
+use HtmlAcademy\BusinessLogic\CancelAction;
+use HtmlAcademy\BusinessLogic\DoneAction;
+use HtmlAcademy\BusinessLogic\RespondAction;
+use HtmlAcademy\BusinessLogic\RefuseAction;
 
 require_once './vendor/autoload.php';
 
-class Task
+class AvailableActions
 {
     public $currentStatus;
     public $customer_id;
@@ -60,12 +64,12 @@ class Task
 //    }
 //    ];
 
-    public function nextStatus(int $action): int
+    public function nextStatus(AbstractClassAction $action): int ///  здесь нужно передавать название класса-действия?
     {
-        if (!array_key_exists($action, $this->getAllActions())) {
+        if (!array_key_exists($action::returnActionName(), $this->getAllActions())) {
             throw new UndefinedActionException();
         }
-        switch ($action) {
+        switch ($action::returnActionName()) {
             case self::ACTION_CANCEL:
                 return self::STATUS_CANCELED;
                 break;
@@ -79,5 +83,10 @@ class Task
                 return self::STATUS_IN_WORK;
                 break;
         }
+    }
+
+    public function getAvailableActions($role,$id) // ещё делаю...
+    {
+
     }
 }
