@@ -9,20 +9,20 @@ require_once './vendor/autoload.php';
 
 class RefuseAction extends AbstractClassAction
 {
-    public static function getActionName() : string
+    public static function getActionName(): string
     {
         return 'Отказаться';
     }
 
-    public static function getInteriorName() : string
+    public static function getInteriorName(): string
     {
         return 'act_refuse';
     }
 
-    public static function roleCheck(int $user_id,string $task_status,bool $availability=null) : bool
+    public static function roleCheck(int $user_id, string $task_status, bool $availability = null): bool
     {
-        if($task_status == 'IN_WORKING') {
-            if($user_id == 'worker_id') {
+        if ($task_status == 'IN_WORKING') {
+            if ($user_id == 'worker_id') {
                 return TRUE;
             }
         }
