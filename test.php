@@ -5,20 +5,19 @@ require_once 'vendor/autoload.php';
 use HtmlAcademy\BusinessLogic\AvailableActions;
 use HtmlAcademy\Exceptions\UndefinedActionException;
 use HtmlAcademy\BusinessLogic\CancelAction;
-try {
-    $task = new AvailableActions();
+use HtmlAcademy\BusinessLogic\Task;
+use HtmlAcademy\BusinessLogic\DoneAction;
+use HtmlAcademy\BusinessLogic\RefuseAction;
+use HtmlAcademy\BusinessLogic\RespondAction;
 
-    echo "<pre>";
-    print_r($task->getAllActions());
-    echo "</pre>";
+try {
+    $task = new Task();
+
     echo "<pre>";
     print_r($task->getAllStatuses());
     echo "</pre>";
 
-    print $task->getAllStatuses()[$task->nextStatus(AvailableActions::ACTION_RESPOND)] . '</br>';
-    print $task->getAllStatuses()[$task->nextStatus(AvailableActions::ACTION_REFUSE)] . '</br>';
-    print $task->getAllStatuses()[$task->nextStatus(AvailableActions::ACTION_DONE)] . '</br>';
-    print $task->getAllStatuses()[$task->nextStatus(AvailableActions::ACTION_CANCEL)] . '</br>';
+    print $task->getAllStatuses()[$task->nextStatus(RespondAction::class)] . '</br>';
 } catch (UndefinedActionException $e) {
     die($e->getMessage());
 }

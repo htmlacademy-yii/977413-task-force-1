@@ -26,6 +26,6 @@ class RefuseAction extends AbstractClassAction
                 return TRUE;
             }
         }
-        return FALSE;
+        return NULL;
     }
 }
