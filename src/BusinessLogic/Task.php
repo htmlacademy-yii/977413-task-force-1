@@ -26,7 +26,7 @@ class Task
         ];
     }
 
-    public function nextStatus($action): int
+    public function nextStatus(AbstractClassAction $action): int
     {
         if (!in_array($action::getActionName(), AvailableActions::getAllActions())) {
             throw new UndefinedActionException();
