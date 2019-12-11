@@ -19,13 +19,11 @@ class DoneAction extends AbstractClassAction
         return 'act_done';
     }
 
-    public static function roleCheck(int $user_id, string $task_status, bool $availability = null): bool
+    public static function roleCheck(int $user_id, int $customer_id, int $worker_id): bool
     {
-        if ($task_status == 'IN_WORKING') {
-            if ($user_id == 'customer_id') {
+            if ($user_id == $customer_id) {
                 return TRUE;
             }
-        }
         return FALSE;
     }
 }

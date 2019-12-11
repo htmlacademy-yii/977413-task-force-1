@@ -18,14 +18,10 @@ class RespondAction extends AbstractClassAction
         return 'act_respond';
     }
 
-    public static function roleCheck(int $user_id, string $task_status, bool $availability = null): bool
+    public static function roleCheck(int $user_id, int $customer_id, int $worker_id): bool
     {
-        if ($task_status == 'NEW') {
-            if ($user_id == 'worker_id') {
-                if ($availability == TRUE) {
-                    return TRUE;
-                }
-            }
+        if ($user_id == $worker_id) {
+            return TRUE;
         }
         return FALSE;
     }

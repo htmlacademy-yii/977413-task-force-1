@@ -10,15 +10,11 @@ use HtmlAcademy\BusinessLogic\DoneAction;
 use HtmlAcademy\BusinessLogic\RefuseAction;
 use HtmlAcademy\BusinessLogic\RespondAction;
 
+
 try {
-    $task = new Task();
-
-    echo "<pre>";
-    print_r($task->getAllStatuses());
-    echo "</pre>";
-
-    print $task->getAllStatuses()[$task->nextStatus(RespondAction::class)] . '</br>';
+    print Task::nextStatus(DoneAction::getClassName());
 } catch (UndefinedActionException $e) {
     die($e->getMessage());
 }
 
+//print RespondAction::getClassName();

@@ -18,12 +18,10 @@ class CancelAction extends AbstractClassAction
         return 'act_cancel';
     }
 
-    public static function roleCheck(int $user_id, string $task_status, bool $availability = null): bool
+    public static function roleCheck(int $user_id, int $customer_id, int $worker_id): bool
     {
-        if ($task_status == 'NEW') {
-            if ($user_id == 'customer_id') {
-                return TRUE;
-            }
+        if ($user_id == $customer_id) {
+            return TRUE;
         }
         return FALSE;
     }
