@@ -22,7 +22,7 @@ class AvailableActions
 
 //    public function getAvailableActions(bool $role, int $status): int
 //    {
-//    
+//
 //    }
 
 }
