@@ -21,9 +21,9 @@ class DoneAction extends AbstractClassAction
 
     public static function roleCheck(int $user_id, int $customer_id, int $worker_id): bool
     {
-            if ($user_id == $customer_id) {
-                return TRUE;
-            }
+        if ($user_id == $customer_id) {
+            return TRUE;
+        }
         return FALSE;
     }
 }
