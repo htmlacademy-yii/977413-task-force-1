@@ -59,7 +59,7 @@ class Task
 //      ];
 //    }
 
-    public static function nextStatus(object $action): object
+    public static function nextStatus(AbstractClassAction $action): object
     {
         if (!in_array($action::getActionName(), Task::getAllActions())) {
             throw new UndefinedActionException();
