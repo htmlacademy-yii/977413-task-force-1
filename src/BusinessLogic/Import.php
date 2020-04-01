@@ -4,110 +4,77 @@ namespace HtmlAcademy\BusinessLogic;
 
 use HtmlAcademy\Exceptions\SourceFileException;
 use HtmlAcademy\Exceptions\FileFormatException;
+use SplFileInfo;
+use SplFileObject;
 
 class Import
 {
-    private $filename; // имя файла
-    private $columns; // заголовки датасета
-    private $fp; // для открытия файла для чтения
-    private $table_name; // для открытия файла для чтения
 
-    private $result = []; // результат
-    private $error = null; // ошыбки
-
-    public function __construct(string $filename, array $columns, string $table_name)
+    public function import(string $filename, array $columns) : array
     {
-        $this->filename = $filename;
-        $this->columns = $columns;
-        $this->table_name = $table_name;
-    }
-
-    public function import() // основной метод, отвечающий за запуск импорта
-    {
-        if (!$this->validateColumns($this->columns)) {
-            throw new FileFormatException("Заданы неверные заголовки столбцов");
+        if (!$this->validateColumns($columns)) {
+            throw new FileFormatException();
         } // проверяем, что правильно указан список столбцов для импорта
 
-        if (!file_exists($this->filename)) {
-            echo $this->filename;
-            throw new SourceFileException("Файл не существует");
+        if (!file_exists($filename)) {
+            throw new SourceFileException();
         } // проверка существования источника импорта - csv файла
 
-        $this->fp = fopen($this->filename, 'r');
+        $fp = new SplFileObject($filename);
+        $fp->openFile('r');
 
-        if (!$this->fp) {
-            throw new SourceFileException("Не удалось открыть файл на чтение");
+//        $fp = fopen($filename, 'r');
+
+        if (!$fp) {
+            throw new SourceFileException();
         }
 
-        $header_data = $this->getHeaderData();
+        $header_data = $this->getHeaderData($fp);
 
-        if ($header_data !== $this->columns) {
-            throw new FileFormatException("Исходный файл не содержит необходимых столбцов");
+        if ($header_data !== $columns) {
+            throw new FileFormatException();
         }
 
-        while ($line = $this->getNextLine()) {
-            $this->result[] = $line;
-        }
-    }
-
-    public function getData()
-    {
-        return $this->result;
-    }
-
-    private function generateSqlInsert(array $values)
-    {
-        return 'INSERT INTO ' . $this->table_name . ' (' . implode(',', $this->columns) . ' ) VALUES (\'' . implode('\',\'', $values) . '\');';
-    }
-
-    private function generateFullSql()
-    {
-        $sql = '';
-        foreach ($this->result as $values) {
-            $sql = $sql . $this->generateSqlInsert($values);
-        }
-
-        return $sql;
-    }
-
-    public function generateSqlFile()
-    {
-        $file = 'sql/' . $this->table_name . '.sql';
-        $data = $this->generateFullSql();
-        file_put_contents($file, $data);
-    }
-
-    private function getHeaderData()
-    {
-        rewind($this->fp);
-        $data = fgetcsv($this->fp);
-
-        return $data;
-    }
-
-    private function getNextLine()
-    {
-        $result = false;
-
-        if (!feof($this->fp)) {
-            $result = fgetcsv($this->fp);
+        $result = [];
+        while ($line = $this->getNextLine($fp)) {
+            $result[] = $line;
         }
 
         return $result;
     }
 
-    private function validateColumns($columns)
+    private function getHeaderData(SplFileObject $fp)
     {
-        $result = true;
+        $fp->rewind();
+        $header_data = $fp->fgetcsv();
+
+        return $header_data;
+    }
+
+    private function getNextLine(SplFileObject $fp)
+    {
+        $result = FALSE;
+
+        $csv_data = $fp->fgetcsv();
+        if (!$fp->eof() && $csv_data !== NULL) {
+            $result = $csv_data;
+        }
+
+        return $result;
+    }
+
+    public function validateColumns($columns)
+    {
+        $result = TRUE;
 
         if (count($columns)) {
             foreach ($columns as $column) {
                 if (!is_string($column)) {
-                    $result = false;
+                    $result = FALSE;
                 }
             }
         } else {
-            $result = false;
+            $result = FALSE;
         }
 
         return $result;

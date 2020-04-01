@@ -11,16 +11,7 @@ CREATE TABLE users
     name VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     dt_add DATETIME DEFAULT CURRENT_TIMESTAMP,
-    address VARCHAR(255),
-    description VARCHAR(255),
-    img VARCHAR(255),
-    specializations SMALLINT, # специализации, которые выбраны пользователем, необязательное поле, здесь будет массив значений?
-    date_born DATETIME,
-    call_number VARCHAR(255),
-    skype VARCHAR(255),
-    other_messenger VARCHAR(255),
-    rating SMALLINT, # средняя оценка исполнителя
-    role VARCHAR(255)
+    city VARCHAR(255)
 );
 
 CREATE TABLE categories
@@ -43,10 +34,7 @@ CREATE TABLE tasks
     lat FLOAT(24) NOT NULL,
     lng FLOAT(24) NOT NULL,
     author_id INT,
-    img VARCHAR(255), # ? ниже я сделал таблицу
-    documents VARCHAR(255), # ? ниже я сделал таблицу
-    location VARCHAR(255),
-    status SMALLINT # статус задания, не уверен, но думаю здесь будет INT
+    status INT # статус задания, не уверен, но думаю здесь будет INT
 );
 
 CREATE TABLE files_storage # хранилище файлов, которые добавлены заказчиком в описание задания
@@ -77,7 +65,7 @@ CREATE TABLE replies # отклики на задания от исполнит�
     description VARCHAR(255), # отклик с комментарием, необязательное
     author_id INT, # кто откликается
     task_id INT, # задания на котором откликается
-    salary SMALLINT # предлагаемая сумма, необязательное
+    salary FLOAT # предлагаемая сумма, необязательное
 );
 
 CREATE TABLE messages
@@ -109,13 +97,22 @@ CREATE TABLE cities
     # sim_code - символьный код категории который при поиске по категории будет в адресной строке --> /cleaning или /express
 );
 
+CREATE TABLE profiles
+(
+    address VARCHAR(255) NOT NULL,
+    bd VARCHAR(255) NOT NULL,
+    about VARCHAR(255) NOT NULL,
+    phone INT NOT NULL,
+    skype VARCHAR(255) NOT NULL
+);
+
 ALTER TABLE tasks ADD FOREIGN KEY (category_id) REFERENCES categories(id);
 ALTER TABLE tasks ADD FOREIGN KEY (author_id) REFERENCES users(id);
 ALTER TABLE opinions ADD FOREIGN KEY (author_id) REFERENCES users(id);
 ALTER TABLE opinions ADD FOREIGN KEY (user_id) REFERENCES users(id);
 ALTER TABLE opinions ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
-ALTER TABLE responses ADD FOREIGN KEY (author_id) REFERENCES users(id);
-ALTER TABLE responses ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
+ALTER TABLE replies ADD FOREIGN KEY (author_id) REFERENCES users(id);
+ALTER TABLE replies ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
 ALTER TABLE messages ADD FOREIGN KEY (sender_id) REFERENCES users(id);
 ALTER TABLE messages ADD FOREIGN KEY (recipient_id) REFERENCES users(id);
 ALTER TABLE messages ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
@@ -130,7 +127,7 @@ ALTER TABLE tasks ADD INDEX AIndex(author_id);
 ALTER TABLE tasks ADD INDEX CIndex(category_id);
 ALTER TABLE files_storage ADD INDEX TIndex(task_id);
 ALTER TABLE opinions ADD INDEX TIndex(task_id);
-ALTER TABLE responses ADD INDEX TIndex(task_id);
+ALTER TABLE replies ADD INDEX TIndex(task_id);
 ALTER TABLE messages ADD INDEX TIndex(task_id);
 ALTER TABLE notifications ADD INDEX TIndex(task_id);
 # незнаю правильно ди столько много индексов делать...
