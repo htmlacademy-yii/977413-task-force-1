@@ -59,11 +59,11 @@ class Task
 //      ];
 //    }
 
-    public static function nextStatus(string $action): int
+    public static function getNextStatus(AbstractClassAction $action) : int
     {
         if (!in_array($action::getActionName(), Task::getAllActions())) {
             throw new UndefinedActionException();
         }
-        return AvailableActions::RELATIONS[$action] ?? '';
+        return AvailableActions::getActionStatus($action);
     }
 }

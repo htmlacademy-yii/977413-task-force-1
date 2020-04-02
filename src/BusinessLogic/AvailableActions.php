@@ -8,12 +8,13 @@ use HtmlAcademy\BusinessLogic\RefuseAction;
 use HtmlAcademy\BusinessLogic\RespondAction;
 use HtmlAcademy\Exceptions\UndefinedActionException;
 use HtmlAcademy\BusinessLogic\AbstractClassAction;
+use HtmlAcademy\Exceptions\UndefinedStatusException;
 
 require_once './vendor/autoload.php';
 
 class AvailableActions
 {
-    CONST RELATIONS = [
+    private CONST RELATIONS = [
         CancelAction::class => Task::STATUS_CANCELED,
         DoneAction::class => Task::STATUS_DONE,
         RespondAction::class => Task::STATUS_IN_WORK,
@@ -25,6 +26,14 @@ class AvailableActions
 //
 //    }
 
+    public static function getActionStatus(AbstractClassAction $action) : int
+    {
+        $name = $action::getClassName();
+        if (empty(self::RELATIONS[$name])) {
+            throw new UndefinedStatusException();
+        }
+        return self::RELATIONS[$name];
+    }
 }
 
 

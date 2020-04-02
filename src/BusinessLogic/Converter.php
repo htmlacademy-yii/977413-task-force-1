@@ -5,35 +5,29 @@ namespace HtmlAcademy\BusinessLogic;
 use HtmlAcademy\Exceptions\SourceFileException;
 use HtmlAcademy\Exceptions\FileFormatException;
 use HtmlAcademy\BusinessLogic\Import;
-use mysql_xdevapi\Exception;
+use HtmlAcademy\Exceptions\ValidateDataException;
 use SplFileInfo;
 use SplFileObject;
 
 class Converter
 {
     /**
-     * @var array
-     */
-    private $data_info = [];
-
-    /**
      * @var \HtmlAcademy\BusinessLogic\Import
      */
     private $importService;
 
-    public function __construct(array $data_info, Import $import_service)
+    public function __construct(Import $import_service)
     {
-        $this->data_info = $data_info;
         $this->importService = $import_service;
     }
 
-    public function doConvertion()
+    public function doConvertion(array $data_info)
     {
-        if (!$this->validateData($this->data_info)) {
-            throw new \Exception('Data isn\'t validated');
+        if (!$this->validateData($data_info)) {
+            throw new ValidateDataException();
         }
 
-        foreach ($this->data_info as $key => $inf) {
+        foreach ($data_info as $key => $inf) {
             $imported_data = $this->importService->import($inf['csv'], $inf['fields']);
 
             $this->generateSqlFile($imported_data, $inf, $key);

@@ -9,14 +9,14 @@ use HtmlAcademy\BusinessLogic\Task;
 use HtmlAcademy\BusinessLogic\DoneAction;
 use HtmlAcademy\BusinessLogic\RefuseAction;
 use HtmlAcademy\BusinessLogic\RespondAction;
-use HtmlAcademy\BusinessLogic\Import;
 use HtmlAcademy\Exceptions\SourceFileException;
 use HtmlAcademy\Exceptions\FileFormatException;
 use HtmlAcademy\BusinessLogic\Import;
 use HtmlAcademy\BusinessLogic\Converter;
 
 //try {
-//    print Task::nextStatus(DoneAction::getClassName());
+//    $action = new DoneAction();
+//    print Task::getNextStatus($action);
 //} catch (UndefinedActionException $e) {
 //    die($e->getMessage());
 //}
@@ -32,7 +32,7 @@ use HtmlAcademy\BusinessLogic\Converter;
 //echo '<pre>';
 //print_r($import->getData());
 //echo '</pre>';
-
+//
 $data = [
     [
         'csv' => 'data/replies.csv',
@@ -57,6 +57,9 @@ $data = [
             'city',
         ],
     ],
+];
+
+$data2 =  [
     [
         'csv' => 'data/categories.csv',
         'table' => 'categories',
@@ -116,8 +119,10 @@ $data = [
     ],
 ];
 
-$converter = new Converter($data, new Import());
-$converter->doConvertion();
+$converter = new Converter(new Import());
+print $converter->doConvertion($data2);
+
+//$converter->doConvertion($date2);
 
 //$file = new SplFileObject("data/replies.csv");
 //while (!$file->eof()) {
