@@ -2,8 +2,13 @@
 
 namespace HtmlAcademy\BusinessLogic;
 
+use HtmlAcademy\BusinessLogic\AbstractClassStatus;
+use HtmlAcademy\Exceptions\EmptyActionException;
 use HtmlAcademy\Exceptions\UndefinedActionException;
 use HtmlAcademy\BusinessLogic\AvailableActions;
+use HtmlAcademy\Exceptions\UndefinedStatusException;
+use HtmlAcademy\BusinessLogic\AbstractClassAction;
+
 
 require_once './vendor/autoload.php';
 
@@ -20,7 +25,7 @@ class Task
     CONST ACTION_REFUSE = 404;
 
     CONST STATUS_NEW = 1;
-    CONST STATUS_CANCELED = 0;
+    CONST STATUS_CANCELED = 100;
     CONST STATUS_IN_WORK = 10;
     CONST STATUS_DONE = 200;
     CONST STATUS_FAILED = 404;
@@ -39,7 +44,7 @@ class Task
         ];
     }
 
-    public function getAllStatuses(): array
+    public static function getAllStatuses(): array
     {
         return [
             self::STATUS_NEW => 'Новое',
@@ -59,11 +64,15 @@ class Task
 //      ];
 //    }
 
-    public static function nextStatus(object $action): object
+    public static function getNextStatus(AbstractClassAction $action): int
     {
         if (!in_array($action::getActionName(), Task::getAllActions())) {
             throw new UndefinedActionException();
         }
-        return AvailableActions::RELATIONS[$action] ?? '';
+
+        return AvailableActions::getStatusAfterAction($action);
     }
 }
+
+
+
