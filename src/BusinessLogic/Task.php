@@ -2,8 +2,9 @@
 
 namespace HtmlAcademy\BusinessLogic;
 
+use HtmlAcademy\BusinessLogic\Statuses\AbstractClassStatus;
+use HtmlAcademy\Exceptions\EmptyActionException;
 use HtmlAcademy\Exceptions\EmptyStatusException;
-use HtmlAcademy\BusinessLogic\Statuses\StatusNew;
 use HtmlAcademy\BusinessLogic\Actions\AbstractClassAction;
 
 require_once './vendor/autoload.php';
@@ -84,7 +85,13 @@ class Task
 
         return $action->getActionStatus();
     }
+
+    public function getActionsFromStatus(AbstractClassStatus $status) : array
+    {
+        if (!$status->canBeChangedTo($status)) {
+            throw new EmptyActionException();
+        }
+
+        return $status->getActions();
+    }
 }
-
-
-
