@@ -2,135 +2,36 @@
 
 require_once 'vendor/autoload.php';
 
-use HtmlAcademy\BusinessLogic\AvailableActions;
-use HtmlAcademy\Exceptions\UndefinedActionException;
-use HtmlAcademy\BusinessLogic\CancelAction;
-use HtmlAcademy\BusinessLogic\Task;
-use HtmlAcademy\BusinessLogic\DoneAction;
-use HtmlAcademy\BusinessLogic\RefuseAction;
-use HtmlAcademy\BusinessLogic\RespondAction;
-use HtmlAcademy\Exceptions\SourceFileException;
-use HtmlAcademy\Exceptions\FileFormatException;
-use HtmlAcademy\BusinessLogic\Import;
-use HtmlAcademy\BusinessLogic\Converter;
+use HtmlAcademy\Exceptions\StatusErrorException;
+use HtmlAcademy\Exceptions\ActionErrorException;
+use HtmlAcademy\BusinessLogic\Statuses\StatusInWork;
+use HtmlAcademy\BusinessLogic\Statuses\StatusDone;
+use HtmlAcademy\BusinessLogic\Statuses\StatusFailed;
+use HtmlAcademy\BusinessLogic\Statuses\StatusNew;
+use HtmlAcademy\BusinessLogic\Statuses\StatusCanceled;
+use HtmlAcademy\BusinessLogic\Actions\DoneAction;
+use HtmlAcademy\BusinessLogic\Actions\RespondAction;
+use HtmlAcademy\BusinessLogic\Actions\RefuseAction;
+use HtmlAcademy\BusinessLogic\Actions\CancelAction;
 
-//try {
-//    $action = new DoneAction();
-//    print Task::getNextStatus($action);
-//} catch (UndefinedActionException $e) {
-//    die($e->getMessage());
-//}
+$doneAction = new DoneAction();
+$respondAction = new RespondAction();
+$refuseAction = new RefuseAction();
+$cancelAction = new CancelAction();
 
-//print RespondAction::getClassName();
-//$import = new Import('data/replies.csv', ['dt_add', 'rate', 'description'], 'replies');
-//$import->import();
-//echo '<pre>';
-//print_r($import->getData());
-//echo '</pre>';
+$statusDone = new StatusDone();
+$statusFailed = new StatusFailed();
+$statusCanceled = new StatusCanceled();
+$statusInWork = new StatusInWork();
+$statusNew = new StatusNew();
 
-//print $import->generateFullSql();
-//echo '<pre>';
-//print_r($import->getData());
-//echo '</pre>';
-//
-$data = [
-    [
-        'csv' => 'data/replies.csv',
-        'table' => 'replies',
-        'fields' => [
-            'dt_add',
-            'rate',
-            'description',
-            'author_id',
-            'task_id',
-            'salary',
-        ],
-    ],
-    [
-        'csv' => 'data/users.csv',
-        'table' => 'users',
-        'fields' => [
-            'email',
-            'name',
-            'password',
-            'dt_add',
-            'city',
-        ],
-    ],
-];
+assert($doneAction->getActionStatus() == StatusDone::class, new StatusErrorException());
+assert($respondAction->getActionStatus() == StatusInWork::class, new StatusErrorException());
+assert($refuseAction->getActionStatus() == StatusFailed::class, new StatusErrorException());
+assert($cancelAction->getActionStatus() == StatusCanceled::class, new StatusErrorException());
 
-$data2 =  [
-    [
-        'csv' => 'data/categories.csv',
-        'table' => 'categories',
-        'fields' => [
-            'name',
-            'icon',
-        ],
-    ],
-    [
-        'csv' => 'data/cities.csv',
-        'table' => 'cities',
-        'fields' => [
-            'city',
-            'lat',
-            'lng',
-        ],
-    ],
-    [
-        'csv' => 'data/opinions.csv',
-        'table' => 'opinions',
-        'fields' => [
-            'dt_add',
-            'rate',
-            'description',
-            'author_id',
-            'user_id',
-            'task_id'
-        ],
-    ],
-    [
-        'csv' => 'data/profiles.csv',
-        'table' => 'profiles',
-        'fields' => [
-            'address',
-            'bd',
-            'about',
-            'phone',
-            'skype',
-        ],
-    ],
-    [
-        'csv' => 'data/tasks.csv',
-        'table' => 'tasks',
-        'fields' => [
-            'dt_add',
-            'category_id',
-            'description',
-            'expire',
-            'name',
-            'address',
-            'budget',
-            'lat',
-            'lng',
-            'author_id',
-            'status'
-        ],
-    ],
-];
-
-$converter = new Converter(new Import());
-print $converter->doConvertion($data2);
-
-//$converter->doConvertion($date2);
-
-//$file = new SplFileObject("data/replies.csv");
-//while (!$file->eof()) {
-//    var_dump($file->fgetcsv());
-//    echo '<br>';
-//}
-
-
-//$file = new SplFileObject("data/new.txt", "w");
-//$written = $file->fwrite("12345");
-//echo "В файл записано $written байт";
+assert($statusDone->getActions() == [], new ActionErrorException());
+assert($statusFailed->getActions() == [], new ActionErrorException());
+assert($statusCanceled->getActions() == [], new ActionErrorException());
+assert($statusInWork->getActions() == [DoneAction::class, RefuseAction::class], new ActionErrorException('В статуса ' . StatusInWork::class . ' должны быть доступными только два действия - ' . DoneAction::class . ' и ' . RefuseAction::class));
+assert($statusNew->getActions() == [RespondAction::class, CancelAction::class], new ActionErrorException('В статуса ' . StatusNew::class . ' должны быть доступными только два действия - ' . RespondAction::class . ' и ' . CancelAction::class));

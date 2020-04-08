@@ -21,11 +21,6 @@ class AvailableActions
         RefuseAction::class => Task::STATUS_FAILED
     ];
 
-//    public function getAvailableActions(bool $role, int $status): int
-//    {
-//
-//    }
-
     public static function getActionStatus(AbstractClassAction $action) : int
     {
         $name = $action::getClassName();
@@ -35,8 +30,3 @@ class AvailableActions
         return self::RELATIONS[$name];
     }
 }
-
-
-
-//
-//
