@@ -13,13 +13,6 @@ abstract class AbstractClassStatus
         return $this->availableActions;
     }
 
-    abstract public function getStatusName(): string;
+    abstract static public function getStatusName(): string;
 
-    public function canBeChangedTo(AbstractClassStatus $status) : bool
-    {
-        if (!isset($status->availableActions)) {
-            return FALSE;
-        }
-        return TRUE;
-    }
 }

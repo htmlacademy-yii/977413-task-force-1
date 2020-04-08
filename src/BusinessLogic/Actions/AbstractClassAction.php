@@ -13,7 +13,7 @@ abstract class AbstractClassAction
         return $this->actionStatus;
     }
 
-    abstract public function getActionName(): string;
+    abstract public static function getActionName(): string;
 
     abstract public function getInteriorName(): string;
 

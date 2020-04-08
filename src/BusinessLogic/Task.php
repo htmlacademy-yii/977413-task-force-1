@@ -23,41 +23,48 @@ class Task
 
 //    public $finish_date;
 
-//    CONST ACTION_RESPOND = 10;
-//    CONST ACTION_CANCEL = 0;
-//    CONST ACTION_DONE = 200;
-//    CONST ACTION_REFUSE = 404;
+    CONST ACTION_RESPOND = 10;
+    CONST ACTION_CANCEL = 0;
+    CONST ACTION_DONE = 200;
+    CONST ACTION_REFUSE = 404;
+
+    CONST STATUS_NEW = 1;
+    CONST STATUS_CANCELED = 100;
+    CONST STATUS_IN_WORK = 10;
+    CONST STATUS_DONE = 200;
+    CONST STATUS_FAILED = 404;
 //
-//    CONST STATUS_NEW = 1;
-//    CONST STATUS_CANCELED = 100;
-//    CONST STATUS_IN_WORK = 10;
-//    CONST STATUS_DONE = 200;
-//    CONST STATUS_FAILED = 404;
+//    CONST ROLE_CUSTOMER = 3;
+//    CONST ROLE_WORKER = 2;
+//    CONST ROLE_GUEST = 1;
 //
-////    CONST ROLE_CUSTOMER = 3;
-////    CONST ROLE_WORKER = 2;
-////    CONST ROLE_GUEST = 1;
+//    private CONST RELATIONS = [
+//        CancelAction::class => Task::STATUS_CANCELED,
+//        DoneAction::class => Task::STATUS_DONE,
+//        RespondAction::class => Task::STATUS_IN_WORK,
+//        RefuseAction::class => Task::STATUS_FAILED
+//    ];
 //
-//    public static function getAllActions(): array
-//    {
-//        return [
-//            self::ACTION_RESPOND => RespondAction::getActionName(),
-//            self::ACTION_CANCEL => CancelAction::getActionName(),
-//            self::ACTION_DONE => DoneAction::getActionName(),
-//            self::ACTION_REFUSE => RefuseAction::getActionName(),
-//        ];
-//    }
-//
-//    public static function getAllStatuses(): array
-//    {
-//        return [
-//            self::STATUS_NEW => StatusNew::getStatusName(),
-//            self::STATUS_CANCELED => StatusCanceled::getStatusName(),
-//            self::STATUS_IN_WORK => StatusInWork::getStatusName(),
-//            self::STATUS_DONE => StatusDone::getStatusName(),
-//            self::STATUS_FAILED => StatusFailed::getStatusName(),
-//        ];
-//    }
+    public static function getAllActions(): array
+    {
+        return [
+            self::ACTION_RESPOND => RespondAction::getActionName(),
+            self::ACTION_CANCEL => CancelAction::getActionName(),
+            self::ACTION_DONE => DoneAction::getActionName(),
+            self::ACTION_REFUSE => RefuseAction::getActionName(),
+        ];
+    }
+
+    public static function getAllStatuses(): array
+    {
+        return [
+            self::STATUS_NEW => StatusNew::getStatusName(),
+            self::STATUS_CANCELED => StatusCanceled::getStatusName(),
+            self::STATUS_IN_WORK => StatusInWork::getStatusName(),
+            self::STATUS_DONE => StatusDone::getStatusName(),
+            self::STATUS_FAILED => StatusFailed::getStatusName(),
+        ];
+    }
 
 //    public function getAllRoles() : array
 //    {
@@ -88,10 +95,6 @@ class Task
 
     public function getActionsFromStatus(AbstractClassStatus $status) : array
     {
-        if (!$status->canBeChangedTo($status)) {
-            throw new EmptyActionException();
-        }
-
         return $status->getActions();
     }
 }

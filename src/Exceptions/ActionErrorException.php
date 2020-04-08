@@ -8,5 +8,5 @@ require_once './vendor/autoload.php';
 
 class ActionErrorException extends AssertionError
 {
-    protected $message = 'В данного статуса нету доступных действий!';
+    protected $message = 'В данном статусе недоступны никакие действия!';
 }
