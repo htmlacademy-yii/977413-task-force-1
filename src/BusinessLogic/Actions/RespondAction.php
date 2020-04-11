@@ -10,7 +10,7 @@ class RespondAction extends AbstractClassAction
 {
     protected $actionStatus = StatusInWork::class;
 
-    public function getActionName(): string
+    public static function getActionName(): string
     {
         return 'Откликнуться';
     }

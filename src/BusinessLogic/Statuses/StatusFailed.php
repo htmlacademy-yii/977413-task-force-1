@@ -4,7 +4,7 @@ namespace HtmlAcademy\BusinessLogic\Statuses;
 
 class StatusFailed extends AbstractClassStatus
 {
-    public function getStatusName(): string
+    public static function getStatusName(): string
     {
         return 'Провалено';
     }

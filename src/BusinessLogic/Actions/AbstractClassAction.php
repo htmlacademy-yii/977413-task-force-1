@@ -24,5 +24,3 @@ abstract class AbstractClassAction
 
     abstract public function roleCheck(int $user_id, int $customer_id, int $worker_id): bool;
 }
-
-//string $task_status, bool $availability = null

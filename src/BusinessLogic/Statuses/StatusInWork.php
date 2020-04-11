@@ -7,7 +7,7 @@ use HtmlAcademy\BusinessLogic\Actions\RefuseAction;
 
 class StatusInWork extends AbstractClassStatus
 {
-    public function getStatusName(): string
+    public static function getStatusName(): string
     {
         return 'В работе';
     }

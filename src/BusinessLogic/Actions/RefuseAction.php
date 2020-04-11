@@ -10,7 +10,7 @@ class RefuseAction extends AbstractClassAction
 {
     protected $actionStatus = StatusFailed::class;
 
-    public function getActionName(): string
+    public static function getActionName(): string
     {
         return 'Отказаться';
     }

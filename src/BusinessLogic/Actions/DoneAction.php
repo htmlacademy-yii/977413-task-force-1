@@ -10,7 +10,7 @@ class DoneAction extends AbstractClassAction
 {
     protected $actionStatus = StatusDone::class;
 
-    public function getActionName(): string
+    public static function getActionName(): string
     {
         return 'Выполнено';
     }
