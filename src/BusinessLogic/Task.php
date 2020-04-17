@@ -64,7 +64,7 @@ class Task
             self::STATUS_IN_WORK => StatusInWork::getStatusName(),
             self::STATUS_DONE => StatusDone::getStatusName(),
             self::STATUS_FAILED => StatusFailed::getStatusName(),
-        ];
+        ];ч''
     }
 
 //    public function getAllRoles() : array

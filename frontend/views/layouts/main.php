@@ -149,6 +149,7 @@ AppAsset::register($this);
             <div class="page-footer__links">
                 <ul class="links__list">
                     <li class="links__item">
+<<<<<<< HEAD
                         <a href="">
 
 
@@ -161,6 +162,9 @@ AppAsset::register($this);
 
 
                         </a>
+=======
+                        <a href="">Задания</a>
+>>>>>>> df86f62d7899b76482ce74637cc6fedd1bf85217
                     </li>
                     <li class="links__item">
                         <a href="">Мой профиль</a>
