@@ -7,7 +7,7 @@ use HtmlAcademy\BusinessLogic\Actions\RespondAction;
 
 class StatusNew extends AbstractClassStatus
 {
-    public function getStatusName(): string
+    public static function getStatusName(): string
     {
         return 'Новое';
     }

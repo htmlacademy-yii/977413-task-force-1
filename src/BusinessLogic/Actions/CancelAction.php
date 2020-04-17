@@ -10,7 +10,7 @@ class CancelAction extends AbstractClassAction
 {
     protected $actionStatus = StatusCanceled::class;
 
-    public function getActionName(): string
+    public static function getActionName(): string
     {
         return 'Отменить';
     }

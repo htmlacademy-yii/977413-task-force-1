@@ -2,6 +2,7 @@
 
 namespace HtmlAcademy\BusinessLogic;
 
+use HtmlAcademy\BusinessLogic\Actions\RespondAction;
 use HtmlAcademy\BusinessLogic\Statuses\AbstractClassStatus;
 use HtmlAcademy\Exceptions\EmptyActionException;
 use HtmlAcademy\Exceptions\EmptyStatusException;
@@ -75,11 +76,20 @@ class Task
 //      ];
 //    }
 
-    public static function getNextStatus(AbstractClassAction $action) : int
+    public function getStatusAfterAction(AbstractClassAction $action) : string
     {
         if (empty($action->getActionStatus())) {
             throw new EmptyStatusException();
         }
-        return AvailableActions::getActionStatus($action);
+
+        return $action->getActionStatus();
     }
+
+    public function getActionsFromStatus(AbstractClassStatus $status) : array
+    {
+        return $status->getActions();
+    }
+
+
+
 }
