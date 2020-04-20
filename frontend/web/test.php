@@ -35,3 +35,4 @@ assert($statusFailed->getActions() == [], new ErrorActionException());
 assert($statusCanceled->getActions() == [], new ErrorActionException());
 assert($statusInWork->getActions() == [DoneAction::class, RefuseAction::class], new ErrorActionException('В статуса ' . StatusInWork::class . ' должны быть доступными только два действия - ' . DoneAction::class . ' и ' . RefuseAction::class));
 assert($statusNew->getActions() == [RespondAction::class, CancelAction::class], new ErrorActionException('В статуса ' . StatusNew::class . ' должны быть доступными только два действия - ' . RespondAction::class . ' и ' . CancelAction::class));
+
