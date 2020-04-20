@@ -94,7 +94,6 @@ CREATE TABLE cities
     city VARCHAR(255) NOT NULL UNIQUE,
     lat FLOAT(24) NOT NULL,
     lng FLOAT(24) NOT NULL
-    # sim_code - символьный код категории который при поиске по категории будет в адресной строке --> /cleaning или /express
 );
 
 CREATE TABLE profiles
@@ -119,18 +118,17 @@ ALTER TABLE messages ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
 ALTER TABLE notifications ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
 ALTER TABLE notifications ADD FOREIGN KEY (recipient_id) REFERENCES users(id);
 ALTER TABLE files_storage ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
-# ...
 
-ALTER TABLE tasks ADD INDEX NIndex(name);
-ALTER TABLE tasks ADD INDEX AIndex(author_id);
-ALTER TABLE tasks ADD INDEX AIndex(author_id);
-ALTER TABLE tasks ADD INDEX CIndex(category_id);
-ALTER TABLE files_storage ADD INDEX TIndex(task_id);
-ALTER TABLE opinions ADD INDEX TIndex(task_id);
-ALTER TABLE replies ADD INDEX TIndex(task_id);
-ALTER TABLE messages ADD INDEX TIndex(task_id);
-ALTER TABLE notifications ADD INDEX TIndex(task_id);
-# незнаю правильно ди столько много индексов делать...
-
+-- ALTER TABLE tasks ADD INDEX NIndex(name);
+-- ALTER TABLE tasks ADD INDEX AIndex(author_id);
+-- ALTER TABLE tasks ADD INDEX AIndex(author_id);
+-- ALTER TABLE tasks ADD INDEX CIndex(category_id);
+-- ALTER TABLE files_storage ADD INDEX TIndex(task_id);
+-- ALTER TABLE opinions ADD INDEX TIndex(task_id);
+-- ALTER TABLE replies ADD INDEX TIndex(task_id);
+-- ALTER TABLE messages ADD INDEX TIndex(task_id);
+-- ALTER TABLE notifications ADD INDEX TIndex(task_id);
+-- # незнаю правильно ди столько много индексов делать...
+--
 
 

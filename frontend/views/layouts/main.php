@@ -149,18 +149,7 @@ AppAsset::register($this);
             <div class="page-footer__links">
                 <ul class="links__list">
                     <li class="links__item">
-                        <a href="">
-
-
-
-
-
-
-
-
-
-
-                        </a>
+                        <a href="">Задания</a>
                     </li>
                     <li class="links__item">
                         <a href="">Мой профиль</a>
