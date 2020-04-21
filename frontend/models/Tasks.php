@@ -10,15 +10,23 @@ use Yii;
  * @property int $id
  * @property string|null $dt_add
  * @property int $category_id
- * @property string $description
+ * @property string|null $description
  * @property string|null $expire
- * @property string $name
+ * @property string|null $name
  * @property string|null $address
  * @property int|null $budget
- * @property float $lat
- * @property float $lng
- * @property int|null $author_id
+ * @property float|null $lat
+ * @property float|null $lng
+ * @property int $author_id
  * @property int|null $status
+ *
+ * @property FilesStorage[] $filesStorages
+ * @property Messages[] $messages
+ * @property Notifications[] $notifications
+ * @property Opinions[] $opinions
+ * @property Replies[] $replies
+ * @property Users $author
+ * @property Categories $category
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -37,10 +45,13 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             [['dt_add', 'expire'], 'safe'],
-            [['category_id', 'description', 'name', 'lat', 'lng'], 'required'],
+            [['category_id', 'author_id'], 'required'],
             [['category_id', 'budget', 'author_id', 'status'], 'integer'],
+            [['description'], 'string'],
             [['lat', 'lng'], 'number'],
-            [['description', 'name', 'address'], 'string', 'max' => 255],
+            [['name', 'address'], 'string', 'max' => 255],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['author_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -63,5 +74,75 @@ class Tasks extends \yii\db\ActiveRecord
             'author_id' => 'Author ID',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     * Gets query for [[FilesStorages]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFilesStorages()
+    {
+        return $this->hasMany(FilesStorage::className(), ['task_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Messages]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessages()
+    {
+        return $this->hasMany(Messages::className(), ['task_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Notifications]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNotifications()
+    {
+        return $this->hasMany(Notifications::className(), ['task_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Opinions]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOpinions()
+    {
+        return $this->hasMany(Opinions::className(), ['task_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Replies]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReplies()
+    {
+        return $this->hasMany(Replies::className(), ['task_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Author]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthor()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+    }
+
+    /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
     }
 }

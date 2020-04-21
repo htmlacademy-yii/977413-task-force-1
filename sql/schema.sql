@@ -105,19 +105,97 @@ CREATE TABLE profiles
     skype VARCHAR(255) NOT NULL
 );
 
-ALTER TABLE tasks ADD FOREIGN KEY (category_id) REFERENCES categories(id);
-ALTER TABLE tasks ADD FOREIGN KEY (author_id) REFERENCES users(id);
-ALTER TABLE opinions ADD FOREIGN KEY (author_id) REFERENCES users(id);
-ALTER TABLE opinions ADD FOREIGN KEY (user_id) REFERENCES users(id);
-ALTER TABLE opinions ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
-ALTER TABLE replies ADD FOREIGN KEY (author_id) REFERENCES users(id);
-ALTER TABLE replies ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
-ALTER TABLE messages ADD FOREIGN KEY (sender_id) REFERENCES users(id);
-ALTER TABLE messages ADD FOREIGN KEY (recipient_id) REFERENCES users(id);
-ALTER TABLE messages ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
-ALTER TABLE notifications ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
-ALTER TABLE notifications ADD FOREIGN KEY (recipient_id) REFERENCES users(id);
-ALTER TABLE files_storage ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
+-- ALTER TABLE tasks ADD FOREIGN KEY (category_id) REFERENCES categories(id);
+-- ALTER TABLE tasks ADD FOREIGN KEY (author_id) REFERENCES users(id);
+-- ALTER TABLE opinions ADD FOREIGN KEY (author_id) REFERENCES users(id);
+-- ALTER TABLE opinions ADD FOREIGN KEY (user_id) REFERENCES users(id);
+-- ALTER TABLE opinions ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
+-- ALTER TABLE replies ADD FOREIGN KEY (author_id) REFERENCES users(id);
+-- ALTER TABLE replies ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
+-- ALTER TABLE messages ADD FOREIGN KEY (sender_id) REFERENCES users(id);
+-- ALTER TABLE messages ADD FOREIGN KEY (recipient_id) REFERENCES users(id);
+-- ALTER TABLE messages ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
+-- ALTER TABLE notifications ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
+-- ALTER TABLE notifications ADD FOREIGN KEY (recipient_id) REFERENCES users(id);
+-- ALTER TABLE files_storage ADD FOREIGN KEY (task_id) REFERENCES tasks(id);
+
+ALTER TABLE tasks
+   ADD CONSTRAINT FK_Task_Category FOREIGN KEY (category_id)
+      REFERENCES categories (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE tasks
+   ADD CONSTRAINT FK_Task_Author FOREIGN KEY (author_id)
+      REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE opinions
+   ADD CONSTRAINT FK_Opinion_Author FOREIGN KEY (author_id)
+      REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE opinions
+   ADD CONSTRAINT FK_Opinion_User FOREIGN KEY (user_id)
+      REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE opinions
+   ADD CONSTRAINT FK_Opinion_Task FOREIGN KEY (task_id)
+      REFERENCES tasks (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE replies
+   ADD CONSTRAINT FK_Reply_Author FOREIGN KEY (author_id)
+      REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE replies
+   ADD CONSTRAINT FK_Reply_Task FOREIGN KEY (task_id)
+      REFERENCES tasks (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE messages
+   ADD CONSTRAINT FK_Message_Sender FOREIGN KEY (sender_id)
+      REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE messages
+   ADD CONSTRAINT FK_Message_Recipient FOREIGN KEY (recipient_id)
+      REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE messages
+   ADD CONSTRAINT FK_Message_Task FOREIGN KEY (task_id)
+      REFERENCES tasks (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE notifications
+   ADD CONSTRAINT FK_Notification_Task FOREIGN KEY (task_id)
+      REFERENCES tasks (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE notifications
+   ADD CONSTRAINT FK_Notification_Recipient FOREIGN KEY (recipient_id)
+      REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+
+ALTER TABLE files_storage
+   ADD CONSTRAINT FK_File_Task FOREIGN KEY (task_id)
+      REFERENCES tasks (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
 
 -- ALTER TABLE tasks ADD INDEX NIndex(name);
 -- ALTER TABLE tasks ADD INDEX AIndex(author_id);

@@ -8,11 +8,15 @@ use Yii;
  * This is the model class for table "messages".
  *
  * @property int $id
- * @property string $message
- * @property int $sender_id
- * @property int $recipient_id
- * @property int $task_id
+ * @property string|null $message
+ * @property int|null $sender_id
+ * @property int|null $recipient_id
+ * @property int|null $task_id
  * @property string|null $dt_add
+ *
+ * @property Users $recipient
+ * @property Users $sender
+ * @property Tasks $task
  */
 class Messages extends \yii\db\ActiveRecord
 {
@@ -30,10 +34,12 @@ class Messages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['message', 'sender_id', 'recipient_id', 'task_id'], 'required'],
+            [['message'], 'string'],
             [['sender_id', 'recipient_id', 'task_id'], 'integer'],
             [['dt_add'], 'safe'],
-            [['message'], 'string', 'max' => 255],
+            [['recipient_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['recipient_id' => 'id']],
+            [['sender_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['sender_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -50,5 +56,35 @@ class Messages extends \yii\db\ActiveRecord
             'task_id' => 'Task ID',
             'dt_add' => 'Dt Add',
         ];
+    }
+
+    /**
+     * Gets query for [[Recipient]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecipient()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'recipient_id']);
+    }
+
+    /**
+     * Gets query for [[Sender]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSender()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'sender_id']);
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
     }
 }

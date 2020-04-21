@@ -8,8 +8,10 @@ use Yii;
  * This is the model class for table "categories".
  *
  * @property int $id
- * @property string $name
- * @property string $icon
+ * @property string|null $name
+ * @property string|null $icon
+ *
+ * @property Tasks[] $tasks
  */
 class Categories extends \yii\db\ActiveRecord
 {
@@ -27,9 +29,7 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'icon'], 'required'],
             [['name', 'icon'], 'string', 'max' => 255],
-            [['name'], 'unique'],
         ];
     }
 
@@ -43,5 +43,15 @@ class Categories extends \yii\db\ActiveRecord
             'name' => 'Name',
             'icon' => 'Icon',
         ];
+    }
+
+    /**
+     * Gets query for [[Tasks]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTasks()
+    {
+        return $this->hasMany(Tasks::className(), ['category_id' => 'id']);
     }
 }

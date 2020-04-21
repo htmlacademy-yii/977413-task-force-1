@@ -7,11 +7,12 @@ use Yii;
 /**
  * This is the model class for table "profiles".
  *
- * @property string $address
- * @property string $bd
- * @property string $about
- * @property int $phone
- * @property string $skype
+ * @property int $id
+ * @property string|null $address
+ * @property string|null $bd
+ * @property string|null $about
+ * @property int|null $phone
+ * @property string|null $skype
  */
 class Profiles extends \yii\db\ActiveRecord
 {
@@ -29,9 +30,9 @@ class Profiles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['address', 'bd', 'about', 'phone', 'skype'], 'required'],
+            [['about'], 'string'],
             [['phone'], 'integer'],
-            [['address', 'bd', 'about', 'skype'], 'string', 'max' => 255],
+            [['address', 'bd', 'skype'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,6 +42,7 @@ class Profiles extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'address' => 'Address',
             'bd' => 'Bd',
             'about' => 'About',

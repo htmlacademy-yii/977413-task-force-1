@@ -22,23 +22,6 @@ class m200421_132014_create_files_storage_table extends Migration
             'task_id' => $this->integer(),
             'dt_add' => $this->dateTime()
         ]);
-
-        // creates index for column `task_id`
-        $this->createIndex(
-            '{{%idx-files_storage-task_id}}',
-            '{{%files_storage}}',
-            'task_id'
-        );
-
-        // add foreign key for table `{{%tasks}}`
-        $this->addForeignKey(
-            '{{%fk-files_storage-task_id}}',
-            '{{%files_storage}}',
-            'task_id',
-            '{{%tasks}}',
-            'id',
-            'CASCADE'
-        );
     }
 
     /**
@@ -46,18 +29,6 @@ class m200421_132014_create_files_storage_table extends Migration
      */
     public function safeDown()
     {
-        // drops foreign key for table `{{%tasks}}`
-        $this->dropForeignKey(
-            '{{%fk-files_storage-task_id}}',
-            '{{%files_storage}}'
-        );
-
-        // drops index for column `task_id`
-        $this->dropIndex(
-            '{{%idx-files_storage-task_id}}',
-            '{{%files_storage}}'
-        );
-
         $this->dropTable('{{%files_storage}}');
     }
 }

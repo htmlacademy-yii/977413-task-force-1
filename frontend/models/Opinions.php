@@ -9,11 +9,15 @@ use Yii;
  *
  * @property int $id
  * @property string|null $dt_add
- * @property int $rate
- * @property string $description
+ * @property int|null $rate
+ * @property string|null $description
  * @property int|null $author_id
  * @property int|null $user_id
  * @property int|null $task_id
+ *
+ * @property Users $author
+ * @property Tasks $task
+ * @property Users $user
  */
 class Opinions extends \yii\db\ActiveRecord
 {
@@ -32,9 +36,11 @@ class Opinions extends \yii\db\ActiveRecord
     {
         return [
             [['dt_add'], 'safe'],
-            [['rate', 'description'], 'required'],
             [['rate', 'author_id', 'user_id', 'task_id'], 'integer'],
-            [['description'], 'string', 'max' => 255],
+            [['description'], 'string'],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['author_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -52,5 +58,35 @@ class Opinions extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'task_id' => 'Task ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Author]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthor()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 }
