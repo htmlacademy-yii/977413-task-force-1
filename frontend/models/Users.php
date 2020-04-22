@@ -39,7 +39,8 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['dt_add'], 'safe'],
-            [['email', 'name', 'password', 'city'], 'string', 'max' => 255],
+            [['email', 'name', 'password', 'city'], 'string', 'max' => 255, 'required'],
+            [['name'], 'unique']
         ];
     }
 
@@ -63,7 +64,7 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMessages()
+    public function getRecipientMessages()
     {
         return $this->hasMany(Messages::className(), ['recipient_id' => 'id']);
     }
@@ -73,7 +74,7 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMessages0()
+    public function getSenderMessages()
     {
         return $this->hasMany(Messages::className(), ['sender_id' => 'id']);
     }
@@ -93,7 +94,7 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getOpinions()
+    public function getCustomerOpinions()
     {
         return $this->hasMany(Opinions::className(), ['author_id' => 'id']);
     }
@@ -103,7 +104,7 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getOpinions0()
+    public function getWorkerOpinions()
     {
         return $this->hasMany(Opinions::className(), ['user_id' => 'id']);
     }

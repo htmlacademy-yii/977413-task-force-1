@@ -4,11 +4,6 @@ use yii\db\Migration;
 
 /**
  * Handles the creation of table `{{%opinions}}`.
- * Has foreign keys to the tables:
- *
- * - `{{%users}}`
- * - `{{%users}}`
- * - `{{%tasks}}`
  */
 class m200421_131714_create_opinions_table extends Migration
 {
@@ -20,11 +15,11 @@ class m200421_131714_create_opinions_table extends Migration
         $this->createTable('{{%opinions}}', [
             'id' => $this->primaryKey(),
             'dt_add' => $this->dateTime(),
-            'rate' => $this->integer(),
+            'rate' => $this->integer()->notNull(),
             'description' => $this->text(),
-            'author_id' => $this->integer(),
-            'user_id' => $this->integer(),
-            'task_id' => $this->integer(),
+            'author_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer()->notNull(),
+            'task_id' => $this->integer()->notNull(),
         ]);
     }
 

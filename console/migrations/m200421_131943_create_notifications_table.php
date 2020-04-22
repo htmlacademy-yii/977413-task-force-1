@@ -4,10 +4,6 @@ use yii\db\Migration;
 
 /**
  * Handles the creation of table `{{%notifications}}`.
- * Has foreign keys to the tables:
- *
- * - `{{%users}}`
- * - `{{%tasks}}`
  */
 class m200421_131943_create_notifications_table extends Migration
 {
@@ -18,9 +14,9 @@ class m200421_131943_create_notifications_table extends Migration
     {
         $this->createTable('{{%notifications}}', [
             'id' => $this->primaryKey(),
-            'notification' => $this->string(),
-            'recipient_id' => $this->integer(),
-            'task_id' => $this->integer(),
+            'notification' => $this->string()->notNull(),
+            'recipient_id' => $this->integer()->notNull(),
+            'task_id' => $this->integer()->notNull(),
             'dt_add' => $this->dateTime()
         ]);
    }

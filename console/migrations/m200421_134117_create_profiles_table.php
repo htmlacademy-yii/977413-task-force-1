@@ -14,9 +14,9 @@ class m200421_134117_create_profiles_table extends Migration
     {
         $this->createTable('{{%profiles}}', [
             'id' => $this->primaryKey(),
-            'address' => $this->string(),
-            'bd' => $this->string(),
-            'about' => $this->text(),
+            'address' => $this->string()->notNull(),
+            'bd' => $this->string()->notNull(),
+            'about' => $this->text()->notNull(),
             'phone' => $this->integer(),
             'skype' => $this->string(),
         ]);

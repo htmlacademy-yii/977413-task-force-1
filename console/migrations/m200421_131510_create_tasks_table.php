@@ -4,10 +4,6 @@ use yii\db\Migration;
 
 /**
  * Handles the creation of table `{{%tasks}}`.
- * Has foreign keys to the tables:
- *
- * - `{{%users}}`
- * - `{{%categories}}`
  */
 class m200421_131510_create_tasks_table extends Migration
 {
@@ -20,15 +16,15 @@ class m200421_131510_create_tasks_table extends Migration
             'id' => $this->primaryKey(),
             'dt_add' => $this->dateTime(),
             'category_id' => $this->integer()->notNull(),
-            'description' => $this->text(),
-            'expire' => $this->dateTime(),
-            'name' => $this->string(),
-            'address' => $this->string(),
-            'budget' => $this->integer(),
-            'lat' => $this->float(),
-            'lng' => $this->float(),
+            'description' => $this->text()->notNull(),
+            'expire' => $this->dateTime()->notNull(),
+            'name' => $this->string()->notNull(),
+            'address' => $this->string()->notNull(),
+            'budget' => $this->integer()->notNull(),
+            'lat' => $this->float()->notNull(),
+            'lng' => $this->float()->notNull(),
             'author_id' => $this->integer()->notNull(),
-            'status' => $this->integer()
+            'status' => $this->smallInteger()->notNull()
         ]);
     }
 

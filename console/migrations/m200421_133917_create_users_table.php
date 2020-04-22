@@ -14,11 +14,11 @@ class m200421_133917_create_users_table extends Migration
     {
         $this->createTable('{{%users}}', [
             'id' => $this->primaryKey(),
-            'email' => $this->string(),
-            'name' => $this->string(),
-            'password' => $this->string(),
+            'email' => $this->string()->notNull(),
+            'name' => $this->string()->notNull(),
+            'password' => $this->string()->notNull(),
             'dt_add' => $this->dateTime(),
-            'city' => $this->string()
+            'city' => $this->string()->notNull()
         ]);
     }
 
