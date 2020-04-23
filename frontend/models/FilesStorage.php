@@ -59,6 +59,6 @@ class FilesStorage extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('files_storage');
+        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('files_storage');
     }
 }

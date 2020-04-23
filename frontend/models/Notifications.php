@@ -61,7 +61,7 @@ class Notifications extends \yii\db\ActiveRecord
      */
     public function getRecipient()
     {
-        return $this->hasOne(Users::className(), ['id' => 'recipient_id']);
+        return $this->hasOne(Users::className(), ['id' => 'recipient_id'])->inverseOf('notifications');
     }
 
     /**
@@ -71,6 +71,6 @@ class Notifications extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('notifications');
     }
 }

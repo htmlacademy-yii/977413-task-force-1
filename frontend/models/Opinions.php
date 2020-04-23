@@ -67,7 +67,7 @@ class Opinions extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+        return $this->hasOne(Users::className(), ['id' => 'author_id'])->inverseOf('opinions');
     }
 
     /**
@@ -77,7 +77,7 @@ class Opinions extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('opinions');
     }
 
     /**
@@ -87,6 +87,6 @@ class Opinions extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('opinions');
     }
 }

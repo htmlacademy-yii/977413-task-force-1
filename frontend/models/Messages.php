@@ -65,7 +65,7 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function getRecipient()
     {
-        return $this->hasOne(Users::className(), ['id' => 'recipient_id']);
+        return $this->hasOne(Users::className(), ['id' => 'recipient_id'])->inverseOf('messages');
     }
 
     /**
@@ -75,7 +75,7 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function getSender()
     {
-        return $this->hasOne(Users::className(), ['id' => 'sender_id']);
+        return $this->hasOne(Users::className(), ['id' => 'sender_id'])->inverseOf('messages');
     }
 
     /**
@@ -85,6 +85,6 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('messages');
     }
 }

@@ -83,7 +83,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getFilesStorages()
     {
-        return $this->hasMany(FilesStorage::className(), ['task_id' => 'id']);
+        return $this->hasMany(FilesStorage::className(), ['task_id' => 'id'])->inverseOf('tasks');
     }
 
     /**
@@ -93,7 +93,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Messages::className(), ['task_id' => 'id']);
+        return $this->hasMany(Messages::className(), ['task_id' => 'id'])->inverseOf('tasks');
     }
 
     /**
@@ -103,7 +103,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getNotifications()
     {
-        return $this->hasMany(Notifications::className(), ['task_id' => 'id']);
+        return $this->hasMany(Notifications::className(), ['task_id' => 'id'])->inverseOf('tasks');
     }
 
     /**
@@ -113,7 +113,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getOpinions()
     {
-        return $this->hasMany(Opinions::className(), ['task_id' => 'id']);
+        return $this->hasMany(Opinions::className(), ['task_id' => 'id'])->inverseOf('tasks');
     }
 
     /**
@@ -123,7 +123,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getReplies()
     {
-        return $this->hasMany(Replies::className(), ['task_id' => 'id']);
+        return $this->hasMany(Replies::className(), ['task_id' => 'id'])->inverseOf('tasks');
     }
 
     /**
@@ -133,7 +133,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+        return $this->hasOne(Users::className(), ['id' => 'author_id'])->inverseOf('tasks');
     }
 
     /**
@@ -143,6 +143,6 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
+        return $this->hasOne(Categories::className(), ['id' => 'category_id'])->inverseOf('tasks');
     }
 }
