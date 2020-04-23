@@ -66,7 +66,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getRecipientMessages()
     {
-        return $this->hasMany(Messages::className(), ['recipient_id' => 'id']);
+        return $this->hasMany(Messages::class, ['recipient_id' => 'id']);
     }
 
     /**
@@ -76,7 +76,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getSenderMessages()
     {
-        return $this->hasMany(Messages::className(), ['sender_id' => 'id'])->inverseOf('users');
+        return $this->hasMany(Messages::class, ['sender_id' => 'id'])->inverseOf('users');
     }
 
     /**
@@ -86,7 +86,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getNotifications()
     {
-        return $this->hasMany(Notifications::className(), ['recipient_id' => 'id'])->inverseOf('users');
+        return $this->hasMany(Notifications::class, ['recipient_id' => 'id'])->inverseOf('users');
     }
 
     /**
@@ -96,7 +96,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getCustomerOpinions()
     {
-        return $this->hasMany(Opinions::className(), ['author_id' => 'id'])->inverseOf('users');
+        return $this->hasMany(Opinions::class, ['author_id' => 'id'])->inverseOf('users');
     }
 
     /**
@@ -106,7 +106,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getWorkerOpinions()
     {
-        return $this->hasMany(Opinions::className(), ['user_id' => 'id'])->inverseOf('users');
+        return $this->hasMany(Opinions::class, ['user_id' => 'id'])->inverseOf('users');
     }
 
     /**
@@ -116,7 +116,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getReplies()
     {
-        return $this->hasMany(Replies::className(), ['author_id' => 'id'])->inverseOf('users');
+        return $this->hasMany(Replies::class, ['author_id' => 'id'])->inverseOf('users');
     }
 
     /**
@@ -126,6 +126,6 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::className(), ['author_id' => 'id'])->inverseOf('users');
+        return $this->hasMany(Tasks::class, ['author_id' => 'id'])->inverseOf('users');
     }
 }
