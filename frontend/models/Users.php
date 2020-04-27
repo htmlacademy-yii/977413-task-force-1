@@ -32,6 +32,12 @@ class Users extends \yii\db\ActiveRecord
         return 'users';
     }
 
+    public static function getAllWorkers()
+    {
+        return self::findAll(['role' => 2]);
+    }
+
+
     /**
      * {@inheritdoc}
      */

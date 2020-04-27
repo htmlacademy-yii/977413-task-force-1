@@ -39,6 +39,24 @@ class Tasks extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Categories::class, ['id' => 'category_id'])->inverseOf('tasks');
+    }
+
+    public static function getAllNewTasks()
+    {
+        return self::find()->where(['status' => 1])->orderBy(['dt_add' => SORT_DESC])->all();
+
+//        return Categories::find()->where(['category_id' => $category_id])->one();
+
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
@@ -134,15 +152,5 @@ class Tasks extends \yii\db\ActiveRecord
     public function getAuthor()
     {
         return $this->hasOne(Users::class, ['id' => 'author_id'])->inverseOf('tasks');
-    }
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasOne(Categories::class, ['id' => 'category_id'])->inverseOf('tasks');
     }
 }
