@@ -23,11 +23,9 @@ class Categories extends \yii\db\ActiveRecord
         return 'categories';
     }
 
-    public static function getCategoryName()
+    public function getName(int $id) : string
     {
-        $name = Categories::find()->all();
-
-        return $name;
+        return Categories::findOne($id);
     }
     /**
      * {@inheritdoc}
@@ -58,7 +56,7 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::class, ['category_id' => 'id'])->inverseOf('categories');
+        return $this->hasMany(Tasks::class, ['category_id' => 'id'])->inverseOf('category');
     }
 
 

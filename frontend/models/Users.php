@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use HtmlAcademy\BusinessLogic\Task;
 use Yii;
 
 /**
@@ -34,7 +35,7 @@ class Users extends \yii\db\ActiveRecord
 
     public static function getAllWorkers()
     {
-        return self::findAll(['role' => 2]);
+        return self::find()->where(['role' => Task::ROLE_WORKER])->orderBy(['dt_add' => SORT_DESC])->all();
     }
 
 

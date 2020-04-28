@@ -16,11 +16,11 @@
 
     <div class="content-view__feedback-card user__search-wrapper">
         <?php
-        foreach ($workers as $worker) {
+        foreach ($workers as $worker):
         ?>
         <div class="feedback-card__top">
             <div class="user__search-icon">
-                <a href="#"><img src="./img/man-glasses.jpg" width="65" height="65"></a>
+                <a href="#"><img src="web/../../img/man-glasses.jpg" width="65" height="65"></a>
                 <span>17 заданий</span>
                 <span>6 отзывов</span>
             </div>
@@ -41,8 +41,8 @@
             <a href="#" class="link-regular">Курьер</a>
             <a href="#" class="link-regular">Оператор ПК</a>
         </div>
-            <?php
-        }
+        <?php
+        endforeach;
         ?>
     </div>
 

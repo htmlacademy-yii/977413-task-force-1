@@ -23,6 +23,7 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -100,7 +101,7 @@ AppAsset::register($this);
             </div>
             <div class="header__account">
                 <a class="header__account-photo">
-                    <img src="./img/user-photo.png"
+                    <img src="web/../../img/user-photo.png"
                          width="43" height="44"
                          alt="Аватар пользователя">
                 </a>

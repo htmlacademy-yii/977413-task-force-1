@@ -8,7 +8,7 @@ use HtmlAcademy\Exceptions\EmptyActionException;
 use HtmlAcademy\Exceptions\EmptyStatusException;
 use HtmlAcademy\BusinessLogic\Actions\AbstractClassAction;
 
-require_once './vendor/autoload.php';
+//require_once './vendor/autoload.php';
 
 class Task
 {
@@ -34,10 +34,10 @@ class Task
     CONST STATUS_IN_WORK = 10;
     CONST STATUS_DONE = 200;
     CONST STATUS_FAILED = 404;
-//
-//    CONST ROLE_CUSTOMER = 3;
-//    CONST ROLE_WORKER = 2;
-//    CONST ROLE_GUEST = 1;
+
+    CONST ROLE_CUSTOMER = 3;
+    CONST ROLE_WORKER = 2;
+    CONST ROLE_GUEST = 1;
 //
 //    private CONST RELATIONS = [
 //        CancelAction::class => Task::STATUS_CANCELED,
@@ -64,17 +64,17 @@ class Task
             self::STATUS_IN_WORK => StatusInWork::getStatusName(),
             self::STATUS_DONE => StatusDone::getStatusName(),
             self::STATUS_FAILED => StatusFailed::getStatusName(),
-        ];ч''
+        ];
     }
 
-//    public function getAllRoles() : array
-//    {
-//      return [
-//        self::ROLE_ADMIN => 'Администратор',
-//        self::ROLE_USER => 'Пользователь',
-//        self::ROLE_GUEST => 'Гость',
-//      ];
-//    }
+    public function getAllRoles() : array
+    {
+      return [
+        self::ROLE_ADMIN => 'Администратор',
+        self::ROLE_USER => 'Пользователь',
+        self::ROLE_GUEST => 'Гость',
+      ];
+    }
 
     public function getStatusAfterAction(AbstractClassAction $action) : string
     {

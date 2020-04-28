@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Categories;
 use frontend\models\Tasks;
 
 class TasksController extends \yii\web\Controller
@@ -11,9 +10,6 @@ class TasksController extends \yii\web\Controller
     {
         $data = Tasks::getAllNewTasks();
 
-
-        $category_name = Categories::getCategoryName();
-
-        return $this->render('index', ['data' => $data, 'category_name' => $category_name]);
+        return $this->render('index', ['data' => $data]);
     }
 }

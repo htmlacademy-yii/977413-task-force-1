@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use HtmlAcademy\BusinessLogic\Task;
 use Yii;
 
 /**
@@ -50,10 +51,7 @@ class Tasks extends \yii\db\ActiveRecord
 
     public static function getAllNewTasks()
     {
-        return self::find()->where(['status' => 1])->orderBy(['dt_add' => SORT_DESC])->all();
-
-//        return Categories::find()->where(['category_id' => $category_id])->one();
-
+        return self::find()->where(['status' => Task::STATUS_NEW])->orderBy(['dt_add' => SORT_DESC])->all();
     }
 
     /**
