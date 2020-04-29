@@ -3,9 +3,9 @@
         <h1>Новые задания</h1>
 
         <div class="new-task__card">
-            <?php
-            foreach ($data as $dat):
-            ?>
+
+            <?php foreach ($data as $dat): ?>
+
             <div class="new-task__title">
                 <a href="#" class="link-regular"><h2><?= $dat->name; ?></h2></a>
                 <a  class="new-task__type link-regular" href="#"><p><?= $dat->category_id;; ?></p></a>
@@ -17,9 +17,9 @@
             <b class="new-task__price new-task__price--translation"><?= $dat->budget; ?><b> ₽</b></b>
             <p class="new-task__place"><?= $dat->address; ?></p>
             <span class="new-task__time"><?= $dat->dt_add; ?></span>
-            <?php
-            endforeach;
-            ?>
+
+            <?php endforeach; ?>
+
         </div>
 
     </div>

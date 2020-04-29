@@ -15,9 +15,9 @@
     </div>
 
     <div class="content-view__feedback-card user__search-wrapper">
-        <?php
-        foreach ($workers as $worker):
-        ?>
+
+        <?php foreach ($workers as $worker):?>
+
         <div class="feedback-card__top">
             <div class="user__search-icon">
                 <a href="#"><img src="web/../../img/man-glasses.jpg" width="65" height="65"></a>
@@ -41,9 +41,9 @@
             <a href="#" class="link-regular">Курьер</a>
             <a href="#" class="link-regular">Оператор ПК</a>
         </div>
-        <?php
-        endforeach;
-        ?>
+
+        <?php endforeach; ?>
+
     </div>
 
 </section>

@@ -23,9 +23,9 @@ class Categories extends \yii\db\ActiveRecord
         return 'categories';
     }
 
-    public function getName(int $id) : string
+    public function getName() : string
     {
-        return Categories::findOne($id);
+        return $this->name;
     }
     /**
      * {@inheritdoc}
