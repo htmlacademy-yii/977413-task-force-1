@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use HtmlAcademy\BusinessLogic\Task;
 use Yii;
 
 /**
@@ -36,6 +37,21 @@ class Tasks extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'tasks';
+    }
+
+    /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Categories::class, ['id' => 'category_id'])->inverseOf('tasks');
+    }
+
+    public static function getAllNewTasks()
+    {
+        return self::find()->where(['status' => Task::STATUS_NEW])->orderBy(['dt_add' => SORT_DESC])->all();
     }
 
     /**
@@ -134,15 +150,5 @@ class Tasks extends \yii\db\ActiveRecord
     public function getAuthor()
     {
         return $this->hasOne(Users::class, ['id' => 'author_id'])->inverseOf('tasks');
-    }
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasOne(Categories::class, ['id' => 'category_id'])->inverseOf('tasks');
     }
 }

@@ -5,6 +5,11 @@
 
 # phpstorm project files
 .idea
+*.ai
+*.log
+*.pdf
+*.psd
+*.sublime*
 
 # netbeans project files
 nbproject
