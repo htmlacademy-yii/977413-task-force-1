@@ -1,3 +1,10 @@
+<?php
+/* @var $this \yii\web\View */
+/* @var $model \frontend\models\WorkerForm */
+/* @var $categories string[] */
+/* @var $workers \frontend\models\Users[] */
+?>
+
 <section class="user__search">
     <div class="user__search-link">
         <p>Сортировать по:</p>
@@ -47,34 +54,80 @@
     </div>
 
 </section>
+
+
 <section  class="search-task">
     <div class="search-task__wrapper">
-        <form class="search-task__form" name="users" method="post" action="#">
-            <fieldset class="search-task__categories">
-                <legend>Категории</legend>
-                <input class="visually-hidden checkbox__input" id="101" type="checkbox" name="" value="" checked disabled>
-                <label for="101">Курьерские услуги </label>
-                <input class="visually-hidden checkbox__input" id="102" type="checkbox" name="" value="" checked>
-                <label  for="102">Грузоперевозки </label>
-                <input class="visually-hidden checkbox__input" id="103" type="checkbox" name="" value="">
-                <label  for="103">Переводы </label>
-                <input class="visually-hidden checkbox__input" id="104" type="checkbox" name="" value="">
-                <label  for="104">Строительство и ремонт </label>
-                <input class="visually-hidden checkbox__input" id="105" type="checkbox" name="" value="">
-                <label  for="105">Выгул животных </label>
-            </fieldset>
-            <fieldset class="search-task__categories">
-                <legend>Дополнительно</legend>
-                <input class="visually-hidden checkbox__input" id="106" type="checkbox" name="" value="" disabled>
-                <label for="106">Сейчас свободен</label>
-                <input class="visually-hidden checkbox__input" id="107" type="checkbox" name="" value="" checked>
-                <label for="107">Сейчас онлайн</label>
-                <input class="visually-hidden checkbox__input" id="108" type="checkbox" name="" value="" checked>
-                <label for="108">Есть отзывы</label>
-            </fieldset>
-            <label class="search-task__name" for="109">Поиск по названию</label>
-            <input class="input-middle input" id="109" type="search" name="q" placeholder="">
-            <button class="button" type="submit">Искать</button>
-        </form>
+        <?php
+        use yii\helpers\Html;
+        use yii\widgets\ActiveForm;
+        ?>
+
+        <?php $form = ActiveForm::begin(
+            [
+//                        'action' => '/',
+                'options' => [
+                    'class' => 'search-task__form'
+                ]
+            ]
+        ); ?>
+
+        <fieldset class="search-task__categories">
+            <!--<legend>Категории</legend>-->
+            <?= $form->field($model, 'categories[]')->checkboxList($categories)
+                // , [
+//                    'itemOptions' => [
+//                    'class' => 'visually-hidden checkbox__input'
+//            ]])
+                ->label('<legend>Категории</legend>') ?>
+            <!-- 'class' => 'visually-hidden checkbox__input' -->
+        </fieldset>
+
+        <fieldset class="search-task__categories">
+            <!--<legend>Дополнительно</legend>-->
+            <?= $form->field($model, 'free')->checkbox()->label('Сейчас свободен') ?>
+            <?= $form->field($model, 'online')->checkbox()->label('Сейчас онлайн') ?>
+            <?= $form->field($model, 'haveReviews')->checkbox()->label('Есть отзывы') ?>
+        </fieldset>
+
+        <?= $form->field($model, 'search')->input('text')
+            ->label('<label class="search-task__name" for="9">Поиск по названию</label>') ?>
+        <!--<label class="search-task__name" for="9">Поиск по названию</label>-->
+        <!--<input class="input-middle input" id="9" type="search" name="q" placeholder="">-->
+
+        <?= Html::submitButton('Искать', ['class' => 'button']) ?>
+        <!--<button class="button" type="submit">Искать</button>-->
+
+        <?php ActiveForm::end(); ?>
+
+
+
+<!--        <form class="search-task__form" name="users" method="post" action="#">-->
+<!--            <fieldset class="search-task__categories">-->
+<!--                <legend>Категории</legend>-->
+<!--                <input class="visually-hidden checkbox__input" id="101" type="checkbox" name="" value="" checked disabled>-->
+<!--                <label for="101">Курьерские услуги </label>-->
+<!--                <input class="visually-hidden checkbox__input" id="102" type="checkbox" name="" value="" checked>-->
+<!--                <label  for="102">Грузоперевозки </label>-->
+<!--                <input class="visually-hidden checkbox__input" id="103" type="checkbox" name="" value="">-->
+<!--                <label  for="103">Переводы </label>-->
+<!--                <input class="visually-hidden checkbox__input" id="104" type="checkbox" name="" value="">-->
+<!--                <label  for="104">Строительство и ремонт </label>-->
+<!--                <input class="visually-hidden checkbox__input" id="105" type="checkbox" name="" value="">-->
+<!--                <label  for="105">Выгул животных </label>-->
+<!--            </fieldset>-->
+<!--            <fieldset class="search-task__categories">-->
+<!--                <legend>Дополнительно</legend>-->
+<!--                <input class="visually-hidden checkbox__input" id="106" type="checkbox" name="" value="" disabled>-->
+<!--                <label for="106">Сейчас свободен</label>-->
+<!--                <input class="visually-hidden checkbox__input" id="107" type="checkbox" name="" value="" checked>-->
+<!--                <label for="107">Сейчас онлайн</label>-->
+<!--                <input class="visually-hidden checkbox__input" id="108" type="checkbox" name="" value="" checked>-->
+<!--                <label for="108">Есть отзывы</label>-->
+<!--            </fieldset>-->
+<!--            <label class="search-task__name" for="109">Поиск по названию</label>-->
+<!--            <input class="input-middle input" id="109" type="search" name="q" placeholder="">-->
+<!--            <button class="button" type="submit">Искать</button>-->
+<!--        </form>-->
     </div>
 </section>

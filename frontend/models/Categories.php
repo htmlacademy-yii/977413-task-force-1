@@ -27,6 +27,17 @@ class Categories extends \yii\db\ActiveRecord
     {
         return $this->name;
     }
+//
+//    public static function getAllCategories()
+//    {
+//        return self::find()->all();
+//    }
+
+    public static function getAllForDropdown() : array
+    {
+        return self::find()->select(['name'])->indexBy('id')->column();
+    }
+
     /**
      * {@inheritdoc}
      */
