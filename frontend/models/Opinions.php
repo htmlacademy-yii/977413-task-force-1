@@ -85,7 +85,7 @@ class Opinions extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getUsers()
     {
         return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('opinions');
     }
