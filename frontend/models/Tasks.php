@@ -54,11 +54,6 @@ class Tasks extends \yii\db\ActiveRecord
         return self::find()->where(['status' => Task::STATUS_NEW])->orderBy(['dt_add' => SORT_DESC])->all();
     }
 
-    public function unixConverter()
-    {
-        return self::find()->select('address')->all();
-    }
-
     /**
      * {@inheritdoc}
      */

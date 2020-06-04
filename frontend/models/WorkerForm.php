@@ -37,16 +37,40 @@ class WorkerForm extends \yii\base\Model
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'categories' => 'Категории',
+            'free' => 'Сейчас свободен',
+            'online' => 'Сейчас онлайн',
+            'haveReviews' => 'Есть отзывы',
+            'search' => 'Поиск по названию',
+        ];
+    }
+
     public function applyFilters()
     {
-        $this->query->andFilterWhere(['in', 'categories', $this->categories]);
-//        if($this->remote) {
-//            $this->query->andWhere('address IS NULL');
-//        }
-        //           $this->query->andFilterWhere(['is null', 'address', '']);
+        $this->query->andFilterWhere(['in', 'categories_id', $this->categories]);
+        if ($this->free) {
+            $this->query->andWhere(['work_id' => NULL]);
+        }
+        if ($this->online) {
+            $this->query->andWhere(['status' => 1]);
+        }
+        if ($this->haveReviews) {
+            $this->query->joinWith('workerOpinions')
+                ->andWhere(['not', ['opinions.user_id' => NULL]]);
+        }
+        if($this->search) {
+            $this->query->andFilterWhere(['like', 'name', $this->search]);
+        }
+    }
 
-//        if ($this->withoutWorker) {
-//            $this->query->andWhere('replies IS NULL');
-//        }
+    public function getWorkers()
+    {
+        return $this->query->all();
     }
 }

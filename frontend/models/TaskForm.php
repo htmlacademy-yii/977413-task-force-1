@@ -41,6 +41,19 @@ class TaskForm extends Model
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'categories' => 'Категории',
+            'withoutWorker' => 'Без исполнителя',
+            'remote' => 'Удаленная работа',
+            'period' => 'Период',
+            'search' => 'Поиск по названию',
+        ];
+    }
 
     public function applyFilters()
     {
@@ -51,15 +64,8 @@ class TaskForm extends Model
         if($this->withoutWorker) {
             $this->query->andWhere(['replies' => NULL]);
         }
-
-        if($this->period && $this->period === 'day') {
-            $this->query->andFilterWhere(['between', 'expire', date("Y-m-d H:i:s", strtotime('- 1 days')), date("Y-m-d H:i:s")]);
-        }
-        if($this->period && $this->period === 'week') {
-            $this->query->andFilterWhere(['between', 'expire', date("Y-m-d H:i:s", strtotime('- 1 weeks')), date("Y-m-d H:i:s")]);
-        }
-        if($this->period && $this->period === 'month') {
-            $this->query->andFilterWhere(['between', 'expire', date("Y-m-d H:i:s", strtotime('- 1 months')), date("Y-m-d H:i:s")]);
+        if ($this->period) {
+            $this->query->andFilterWhere(['between', 'expire', date("Y-m-d H:i:s", strtotime('- 1 '. $this->period . 's')), date("Y-m-d H:i:s")]);
         }
         if($this->search) {
             $this->query->andFilterWhere(['like', 'name', $this->search]);

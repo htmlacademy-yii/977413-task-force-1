@@ -10,8 +10,11 @@ class UsersController extends \yii\web\Controller
 {
     public function actionIndex()
     {
+
+
+        $categories = Categories::getAllForDropdown();
+
         $model = new WorkerForm();
-//        $model->load(\Yii::$app->request->post());
 
         if($model->load(\Yii::$app->request->post())) {
             if($model->validate()) {
@@ -24,9 +27,7 @@ class UsersController extends \yii\web\Controller
             }
         }
 
-        $workers = Users::getAllWorkers();
-
-        $categories = Categories::getAllForDropdown();
+        $workers = $model->getWorkers();
 
         return $this->render('index', ['workers' => $workers, 'categories' => $categories, 'model' => $model]);
     }

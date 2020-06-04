@@ -135,4 +135,14 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tasks::class, ['author_id' => 'id'])->inverseOf('users');
     }
+
+    /**
+     * Gets query for [[WorkID]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Tasks::class, ['id' => 'work_id'])->inverseOf('users');
+    }
 }
